@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleanbotics Booth</title>
+<style>
+  body, html { margin:0; padding:0; height:100%; overflow:hidden; }
+  #attract, #calculator { width:100%; height:100%; display:flex; justify-content:center; align-items:center; }
+  #calculator { display:none; }
+  img { max-width:100%; max-height:100%; object-fit:contain; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<!-- Attract Slide -->
+<div id="attract">
+  <img src="ROIiPadwallpaper.png" alt="Attract Slide">
+</div>
+
+<!-- Embedded ROI Calculator -->
+<div id="calculator">
+  <iframe src="https://cleanbotics.dmburr.spuderp.com/" style="width:100%; height:100%; border:none;"></iframe>
+</div>
+
+<script>
+let idleTimer;
+
+// Show ROI calculator when attract slide is tapped
+function showCalculator() {
+  document.getElementById('attract').style.display = 'none';
+  document.getElementById('calculator').style.display = 'flex';
+  resetIdleTimer();
+}
+
+// Show attract slide (reset)
+function showAttract() {
+  document.getElementById('calculator').style.display = 'none';
+  document.getElementById('attract').style.display = 'flex';
+}
+
+// Reset idle timer (2 minutes = 120,000ms)
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(showAttract, 120000); // 2 minutes
+}
+
+// Tap event on attract slide
+document.getElementById('attract').addEventListener('click', showCalculator);
+
+// Any interaction with calculator resets idle timer
+document.getElementById('calculator').addEventListener('click', resetIdleTimer);
+</script>
+
+</body>
+</html>
